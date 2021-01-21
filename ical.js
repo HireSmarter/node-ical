@@ -83,10 +83,10 @@ const storeParameter = function (name) {
 const addTZ = function (dt, parameters) {
   const p = parseParameters(parameters);
 
-  if (parameters && p && dt) {
-    dt.tz = p.TZID;
+  if (parameters && p && dt && p.TZID) {
+    dt.tz = getIanaTZFromMS(p.TZID);
     if (dt.tz !== undefined) {
-      // Remove surrouding quotes if found at the begining and at the end of the string
+      // Remove surrounding quotes if found at the beginning and at the end of the string
       // (Occurs when parsing Microsoft Exchange events containing TZID with Windows standard format instead IANA)
       dt.tz = dt.tz.replace(/^"(.*)"$/, '$1');
     }
